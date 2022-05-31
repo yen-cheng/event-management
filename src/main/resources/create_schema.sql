@@ -1,0 +1,38 @@
+CREATE DATABASE IF NOT EXISTS event;
+
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE IF EXISTS events;
+
+CREATE TABLE events(
+    event_id INT NOT NULL AUTO_INCREMENT,
+    holder_id INT NOT NULL,
+    name VARCHAR(100) NOT NULL,
+    event_date DATE NOT NULL,
+    event_start_time TIME NOT NULL,
+    event_end_time TIME NOT NULL,
+    description TEXT DEFAULT NULL,
+    event_participant_limit INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT NULL,
+    PRIMARY KEY (event_id),
+    FOREIGN KEY (holder_id) REFERENCES event_holders(holder_id)
+) ENGINE=INNODB;
+
+
+DROP TABLE IF EXISTS event_holders;
+
+CREATE TABLE event_holders(
+    holder_id INT NOT NULL AUTO_INCREMENT,
+    holder_code VARCHAR(6) NOT NULL,
+    last_name VARCHAR(20) NOT NULL,
+    first_name VARCHAR(20) NOT NULL,
+    introduction TEXT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at DATETIME DEFAULT NULL,
+    PRIMARY KEY (holder_id)
+) ENGINE=INNODB;
+
+SET FOREIGN_KEY_CHECKS=1;
